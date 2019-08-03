@@ -12,6 +12,7 @@ filename = "test.csv"
 fields = [] 
 rows = [] 
 
+non_bmp_map = dict.fromkeys(range(0x10000, sys.maxunicode + 1), 0xfffd)
 # reading csv file 
 with open(filename, 'r') as csvfile: 
 	# creating a csv reader object 
@@ -31,7 +32,8 @@ with open(filename, 'r') as csvfile:
 for row in rows:
         i=0
         value = []
-        for col in row: 
+        for col1 in row:
+                col=col1.translate(non_bmp_map)
                 print(col)
                 value.append(col)
         print('\n')
