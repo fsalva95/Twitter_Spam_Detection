@@ -46,8 +46,21 @@ for row in rows:
         print('\n')
         print('\n')
 
+        countURL=value[1].count("https")
+        value.append(countURL)
 
+        countHashtag=value[1].count("#")
+        value.append(countHashtag)
 
+        countMensions=value[1].count("@")
+        value.append(countMensions)
+
+        averageHashtag=countHashtag/len(value[1].split()) #rispetto le parole della frase
+        averageURL=countURL/len(value[1].split())
+
+        value.append(averageHashtag)
+        value.append(averageURL)
+        value.append(len(value[1].split()))
         print(value)
 
 
