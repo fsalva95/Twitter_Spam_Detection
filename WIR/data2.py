@@ -33,6 +33,7 @@ with open(filename, 'r',encoding="utf8") as csvfile:
 	# get total number of rows 
 	print("Total no. of rows: %d"%(csvreader.line_num)) 
 
+rows.pop(0)
 
 for row in rows:
         i=0
@@ -40,20 +41,18 @@ for row in rows:
         for col in row:
                 col=col.translate(non_bmp_map)
                 print(col)
+                if col == '': col='0'
                 value.append(col)
         print('\n')
         print('\n')
-	#value = row.split(",")
-        while i<len(value)-1:
-                if (len(value)==1):break
-                if isinstance(value[i],str) and isinstance(value[i+1],str) and not value[i].isdigit() and not value[i+1].isdigit() :
-                    value[i]=value[i]+","+value[i+1]
-                    value.remove(value[i+1])
-                    i=0
-                    continue
-                i=i+1
+
+
 
         print(value)
+
+
+
+        
 
         
 
