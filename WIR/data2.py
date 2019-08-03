@@ -3,27 +3,32 @@ import shutil
 import sys  ########
 
 # importing csv module 
-import csv 
+import csv
+
 
 # csv file name 
 filename = "test.csv"
 
 # initializing the titles and rows list 
 fields = [] 
-rows = [] 
+rows = []
 
 non_bmp_map = dict.fromkeys(range(0x10000, sys.maxunicode + 1), 0xfffd)
+
+
 # reading csv file 
-with open(filename, 'r') as csvfile: 
+with open(filename, 'r',encoding="utf8") as csvfile: 
 	# creating a csv reader object 
 	csvreader = csv.reader(csvfile) 
 	
 	# extracting field names through first row 
 	#fields = csvreader.next() 
 
-	# extracting each data row one by one 
+	# extracting each data row one by one
+	
 	for row in csvreader: 
-		rows.append(row) 
+		rows.append(row)
+		
 
 	# get total number of rows 
 	print("Total no. of rows: %d"%(csvreader.line_num)) 
@@ -32,8 +37,8 @@ with open(filename, 'r') as csvfile:
 for row in rows:
         i=0
         value = []
-        for col1 in row:
-                col=col1.translate(non_bmp_map)
+        for col in row:
+                col=col.translate(non_bmp_map)
                 print(col)
                 value.append(col)
         print('\n')
