@@ -4,10 +4,10 @@ import sys  ########
 
 # importing csv module 
 import csv
-
+import shutil
 
 # csv file name 
-filename = "test.csv"
+filename = "train.csv"
 
 # initializing the titles and rows list 
 fields = [] 
@@ -106,49 +106,53 @@ spamWords=['0% risk','777','99%','99.9%','100%','100% more','#1','$$$','100% fre
 
 
 
+with open("data_train.txt", 'w+',encoding="utf8") as trainfile:
+
+        for row in rows:
+                i=0
+                value = []
+                spam=0
+                for col in row:
+                        col=col.translate(non_bmp_map)
+                        print(col)
+                        if col == '': col='0'
+                        value.append(col)
+                        trainfile.write(col+";;$;;")
+                print('\n')
+                print('\n')
+                trainfile.write("\n")
+
+                countURL=value[1].count("https")
+                value.append(countURL)
+
+                countHashtag=value[1].count("#")
+                value.append(countHashtag)
+
+                countMensions=value[1].count("@")
+                value.append(countMensions)
+
+                averageHashtag=countHashtag/len(value[1].split()) #rispetto le parole della frase
+                averageURL=countURL/len(value[1].split())
+
+                value.append(averageHashtag)
+                value.append(averageURL)
+                value.append(len(value[1].split()))
+
+                for v in spamWords:  #conto delle parole spam trovate nella frase
+                        if v in value[1]: spam=spam+1
+                value.append(spam)
 
 
-for row in rows:
-        i=0
-        value = []
-        spam=0
-        for col in row:
-                col=col.translate(non_bmp_map)
-                print(col)
-                if col == '': col='0'
-                value.append(col)
-        print('\n')
-        print('\n')
+                
+                print(value)
 
-        countURL=value[1].count("https")
-        value.append(countURL)
-
-        countHashtag=value[1].count("#")
-        value.append(countHashtag)
-
-        countMensions=value[1].count("@")
-        value.append(countMensions)
-
-        averageHashtag=countHashtag/len(value[1].split()) #rispetto le parole della frase
-        averageURL=countURL/len(value[1].split())
-
-        value.append(averageHashtag)
-        value.append(averageURL)
-        value.append(len(value[1].split()))
-
-        for v in spamWords:  #conto delle parole spam trovate nella frase
-                if v in value[1]: spam=spam+1
-        value.append(spam)
 
 
         
-        print(value)
 
+                        
+                
 
-
-        
-
-        
 
 
 			
