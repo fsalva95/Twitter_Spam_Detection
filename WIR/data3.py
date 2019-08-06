@@ -127,9 +127,11 @@ with open("data_train.txt", 'w+',encoding="utf8") as trainfile:
                         col=col.translate(non_bmp_map)
                         print(col)
                         if col == '': col='0'
-                        if (i!=6):
-                                value.append(col)
-                                trainfile.write(col+";;$;;")
+                        if (i==0 or i==1):
+                                value.append(col.rstrip())
+                        if (i!=6 and i!=1 and i!=0): #rimuovo testo, identificativo e località dal testo train_txt
+                                value.append(col.rstrip())
+                                trainfile.write(col.rstrip()+";;$;;")
                         i=i+1
                 print('\n')
                 print('\n')
