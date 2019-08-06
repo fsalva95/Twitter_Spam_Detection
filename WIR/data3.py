@@ -117,7 +117,7 @@ with open("blacklist_wordpress.txt", 'r', encoding="utf8") as blacklist:
 
 with open("data_train.txt", 'w+',encoding="utf8") as trainfile:
 
-        trainfile.write("Id;;$;;Tweet;;$;;following;;$;;followers;;$;;actions;;$;;is_retweet;;$;;Type;;$;;URLCounted;;$;;HashtagCounted;;$;;MensionCounted;;$;;averageHashtag;;$;;averageURL;;$;;wordsCounted;;$;;SpamWordsCounted\n")
+        trainfile.write("following;;$;;followers;;$;;actions;;$;;is_retweet;;$;;Type;;$;;URLCounted;;$;;HashtagCounted;;$;;MensionCounted;;$;;averageHashtag;;$;;averageURL;;$;;wordsCounted;;$;;SpamWordsCounted\n")
 
         for row in rows:
                 i=0
@@ -129,7 +129,7 @@ with open("data_train.txt", 'w+',encoding="utf8") as trainfile:
                         if col == '': col='0'
                         if (i==0 or i==1):
                                 value.append(col.rstrip())
-                        if (i!=6 and i!=1 and i!=0): #rimuovo testo, identificativo e località dal testo train_txt
+                        if (i!=6 and i!=1 and i!=0): #rimuovo testo, identificativo e località dal testo 
                                 value.append(col.rstrip())
                                 trainfile.write(col.rstrip()+";;$;;")
                         i=i+1
