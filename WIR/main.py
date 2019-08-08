@@ -7,6 +7,9 @@ import shutil
 filename = "data_train.txt"
 
 
+X = []  #intero dataset
+Y = []  #groundtruth
+
 train_x = []  #attributi learning
 train_y = []  #ground truth
 test_x = []
@@ -20,11 +23,18 @@ with open(filename, 'r',encoding="utf8") as file:
                 if i!=0:
                         value=row.split(";;$;;")
                         classification=value[4]
-                        train_y.append(classification)
+                        value=list(map(str.strip,value))
+                        Y.append(classification)
                         #value.remove(value[0])  #rimuovo id
                         #value.remove(value[0])  #rimuovo testo
                         value.remove(value[4])  #rimuovo classificazione
-                        train_x.append(value)
+                        value=list(map(float,value))
+                        X.append(value)
                         print(value)
                         print(row)
                 i=i+1
+
+
+print(X)
+print("\n")
+print(Y)
