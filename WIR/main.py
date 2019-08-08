@@ -20,7 +20,7 @@ with open(filename, 'r',encoding="utf8") as file:
 
         i=0
         for row in file:
-                if i!=0:
+                if i!=0 and len(row.split(";;$;;"))==12:
                         value=row.split(";;$;;")
                         classification=value[4]
                         value=list(map(str.strip,value))
@@ -35,6 +35,6 @@ with open(filename, 'r',encoding="utf8") as file:
                 i=i+1
 
 
-print(X)
+#print(X) #troppo pesante
 print("\n")
-print(Y)
+#print(Y)
