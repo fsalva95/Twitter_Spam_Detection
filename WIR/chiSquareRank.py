@@ -5,6 +5,7 @@ from scipy.stats import chi2_contingency
 from decimal import Decimal
 
 toBeSorted= []
+toBeSortedCHI= []
 
 class ChiSquare:
     def __init__(self, dataframe):
@@ -27,10 +28,12 @@ class ChiSquare:
         #tmp2=round(tmp,25)
         print("p-value of {0}".format(colX))
         print(self.p)
+        print("chi2 of {0}".format(colX))
+        print(self.chi2)
         print(result)
         print("\n")
         toBeSorted.append((colX, self.p))
-        
+        toBeSortedCHI.append((colX, self.chi2))
         
     def TestIndependence(self,colX,colY, alpha=0.05):
         X = self.df[colX].astype(str)
@@ -57,9 +60,15 @@ testColumns = ['following','followers','actions', 'is_retweet', 'URLCounted', 'H
 #actions;is_retweet;URLCounted;;$;;HashtagCounted;;$;;MensionCounted
 for var in testColumns:
     cT.TestIndependence(colX=var,colY="Type" )  
-print(toBeSorted)
+#print(toBeSorted)
 print("\n")
-print("the rank of the attributes is:")
+print("the rank of the attributes is (p-value):")
 toBeSorted.sort(key = lambda x: x[1])
 print(toBeSorted)
-
+#print("NOW THE CHI2")
+#print(toBeSortedCHI)
+toBeSortedCHI.sort(key = lambda x: x[1])
+toBeSortedCHI.reverse()
+print("\n")
+print("THE RANK OF ATTRIBUTES IS (chi2):")
+print(toBeSortedCHI)
