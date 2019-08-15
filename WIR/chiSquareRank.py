@@ -26,12 +26,13 @@ class ChiSquare:
 
         #tmp=Decimal(self.p)
         #tmp2=round(tmp,25)
-        print("p-value of {0}".format(colX))
-        print(self.p)
-        print("chi2 of {0}".format(colX))
-        print(self.chi2)
-        print(result)
-        print("\n")
+        #print("p-value of {0}".format(colX))
+        #print(self.p)
+        #print("chi2 of {0}".format(colX))
+        #print(self.chi2)
+        #print(result)
+        #print("degree of freedom:")
+        #print(self.dof)
         toBeSorted.append((colX, self.p))
         toBeSortedCHI.append((colX, self.chi2))
         
@@ -58,13 +59,13 @@ cT = ChiSquare(df)
 #Feature Selection
 testColumns = ['following','followers','actions', 'is_retweet', 'URLCounted', 'HashtagCounted', 'MensionCounted', 'averageHashtag', 'averageURL', 'wordsCounted', 'SpamWordsCounted', 'dummyCat']
 #actions;is_retweet;URLCounted;;$;;HashtagCounted;;$;;MensionCounted
+test20=['actions']
 for var in testColumns:
     cT.TestIndependence(colX=var,colY="Type" )  
-#print(toBeSorted)
-print("\n")
-print("the rank of the attributes is (p-value):")
 toBeSorted.sort(key = lambda x: x[1])
+print("\n")
 print(toBeSorted)
+print("\n")
 #print("NOW THE CHI2")
 #print(toBeSortedCHI)
 toBeSortedCHI.sort(key = lambda x: x[1])
@@ -72,3 +73,44 @@ toBeSortedCHI.reverse()
 print("\n")
 print("THE RANK OF ATTRIBUTES IS (chi2):")
 print(toBeSortedCHI)
+print("\n")
+
+
+data = df    
+#X = data.drop(['Type', 'following'], axis='columns')  #independent columns
+#y = data.Type    #target column i.e price range
+from sklearn import preprocessing
+le = preprocessing.LabelEncoder()
+data = data.apply(le.fit_transform)
+    
+from sklearn.feature_selection import SelectKBest
+from sklearn.feature_selection import chi2
+from sklearn.feature_selection import mutual_info_classif
+
+X=data.iloc[:, [0,1,2,3,5,6,7,8,9,10,11,12]]
+y=data.iloc[:,4]
+
+#QUESTA è CHI2
+selector = SelectKBest(chi2, k=3)#QUESTO CI DA LE PRIME K FEATURE IN ORDINE DI IMPORTANZA (O ALMENO QUESTA è L'IPOTESI)
+selector.fit(X, y)
+
+X_new = selector.transform(X)
+print(X_new.shape)
+
+X.columns[selector.get_support(indices=True)]
+
+# 1st way to get the list
+vector_names = list(X.columns[selector.get_support(indices=True)])
+print(vector_names)
+
+#QUESTA è INFO-GAIN
+selector2 = SelectKBest(mutual_info_classif, k=3)#QUESTO CI DA LE PRIME K FEATURE IN ORDINE DI IMPORTANZA (O ALMENO QUESTA è L'IPOTESI)
+selector2.fit(X,y)
+X_new2 = selector2.transform(X)
+print(X_new2.shape)
+X.columns[selector2.get_support(indices=True)]
+vector_names2=list(X.columns[selector2.get_support(indices=True)])
+print(vector_names2)
+
+
+
