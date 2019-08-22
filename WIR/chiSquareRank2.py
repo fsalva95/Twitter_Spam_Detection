@@ -76,13 +76,13 @@ ns_df_sorted2 = ns_df2.sort_values(['Scores', 'Feat_names'], ascending = [False,
 print(ns_df_sorted2)
 
 print("CHI2")
-plt.figure(num=None, figsize=(8, 6), dpi=80, facecolor='w', edgecolor='k')
+plt.figure(num=None, figsize=(10, 6), dpi=80, facecolor='w', edgecolor='k')
 plt.bar(ns_df_sorted.Feat_names, ns_df_sorted.Scores, color='r', align='center')
 #plt.bar(vector_names2, selector2.scores_[indices2[range(10)]], color='r', align='center')
 plt.show()
 
 print("info_gain")
-plt.figure(num=None, figsize=(8, 6), dpi=80, facecolor='w', edgecolor='k')
+plt.figure(num=None, figsize=(10, 6), dpi=80, facecolor='w', edgecolor='k')
 plt.bar(ns_df_sorted2.Feat_names, ns_df_sorted2.Scores, color='r', align='center')
 #plt.bar(vector_names2, selector2.scores_[indices2[range(10)]], color='r', align='center')
 plt.show()
