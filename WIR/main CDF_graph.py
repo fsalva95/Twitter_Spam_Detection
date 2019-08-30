@@ -71,20 +71,26 @@ data_graph_quality = np.asarray(data_graph_quality)
 testColumns = ['following','followers','actions', 'is_retweet', 'URLCounted', 'HashtagCounted', 'MensionCounted', 'averageHashtag', 'averageURL', 'wordsCounted', 'SpamWordsCounted']
 
 
+num_bins = 20
 for i in range(len(testColumns)) :
-    num_bins = 20
+    fig, single_plot = plt.subplots()
+    fig.canvas.set_window_title(testColumns[i])
+
+    #QUALITY function
     counts, bin_edges = np.histogram(data_graph_quality[:,i], bins=num_bins, normed=True)
     cdf = np.cumsum (counts)
-    plt.plot(bin_edges[1:], cdf/cdf[-1], color='red')#NONSPAM IS RED
-    
-    
-    #plt.show()
-    
+    single_plot.plot(bin_edges[1:], cdf/cdf[-1], color='blue', label='QUALITY')#QUALITY IS BLUE
+
+    #SPAM function
     counts, bin_edges = np.histogram(data_graph_spam[:,i], bins=num_bins, normed=True)
     cdf = np.cumsum (counts)
-    plt.plot(bin_edges[1:], cdf/cdf[-1], color='yellow')#SPAM IS YELLOW
-    plt.xlabel(testColumns[i])
-    plt.ylabel('CDF')
-    plt.show()
+    single_plot.plot(bin_edges[1:], cdf/cdf[-1], color='red', label='SPAM')#SPAM IS RED
+
+    single_plot.set_xlabel(testColumns[i])
+    single_plot.set_ylabel('CDF')
+
+    single_plot.legend(loc='best')
+
+plt.show()
 
 #print(X);
