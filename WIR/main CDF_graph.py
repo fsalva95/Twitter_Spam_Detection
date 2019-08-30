@@ -68,18 +68,23 @@ print(classification_report(test_y,y_pred))
 
 data_graph_spam = np.asarray(data_graph_spam)
 data_graph_quality = np.asarray(data_graph_quality)
+testColumns = ['following','followers','actions', 'is_retweet', 'URLCounted', 'HashtagCounted', 'MensionCounted', 'averageHashtag', 'averageURL', 'wordsCounted', 'SpamWordsCounted']
 
-num_bins = 20
-counts, bin_edges = np.histogram(data_graph_quality[:,7], bins=num_bins, normed=True)
-cdf = np.cumsum (counts)
-plt.plot(bin_edges[1:], cdf/cdf[-1])
 
-plt.show()
-
-counts, bin_edges = np.histogram(data_graph_spam[:,7], bins=num_bins, normed=True)
-cdf = np.cumsum (counts)
-plt.plot(bin_edges[1:], cdf/cdf[-1])
-
-plt.show()
+for i in range(len(testColumns)) :
+    num_bins = 20
+    counts, bin_edges = np.histogram(data_graph_quality[:,i], bins=num_bins, normed=True)
+    cdf = np.cumsum (counts)
+    plt.plot(bin_edges[1:], cdf/cdf[-1], color='red')#NONSPAM IS RED
+    
+    
+    #plt.show()
+    
+    counts, bin_edges = np.histogram(data_graph_spam[:,i], bins=num_bins, normed=True)
+    cdf = np.cumsum (counts)
+    plt.plot(bin_edges[1:], cdf/cdf[-1], color='yellow')#SPAM IS YELLOW
+    plt.xlabel(testColumns[i])
+    plt.ylabel('CDF')
+    plt.show()
 
 #print(X);
