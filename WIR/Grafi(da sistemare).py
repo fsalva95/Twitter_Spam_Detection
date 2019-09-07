@@ -134,9 +134,9 @@ models = (SVC(kernel='rbf',gamma=1000,C=1),
           SVC(kernel='rbf',gamma=1000,C=1)) 
 
 
-models[0].fit(X,y)
+models[0].fit(train_x,train_y)
 
-models[1].fit(X1,y1)
+models[1].fit(train1_x,train1_y)
 
 
 y_pred=models[0].predict(test_x)
