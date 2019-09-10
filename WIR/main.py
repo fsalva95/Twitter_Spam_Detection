@@ -33,16 +33,15 @@ with open(filename, 'r',encoding="utf8") as file:
         for row in file:
                 if i!=0 and len(row.split(";;$;;"))==12:
                         value=row.split(";;$;;")
-                        
+
                         classification=value[4]
                         value=list(map(str.strip,value))
                         Y.append(classification)
 
-                        value.remove(value[4])  #rimuovo classificazione
+                        value.remove(value[4])  #remove classification result
                         value=list(map(float,value))
                         value=np.asarray(value)
 
-                        
                         X.append(value)
 
                 i=i+1
@@ -57,29 +56,16 @@ for i in range(0,len(X)) :
         y.append(1.0)
 
 
+#scale value to make graphs more readable
 scaler= MinMaxScaler((0,1))
 X= scaler.fit_transform(X)
 train_x, test_x, train_y, test_y = train_test_split(X, y, test_size = 0.20)
 svclassifier = SVC(kernel='rbf',gamma=1000,C=1)
 print(train_x.shape)
-svclassifier.fit(train_x, train_y)
+svclassifier.fit(train_x, train_y)      #fit classifier
 
-y_pred = svclassifier.predict(test_x)
+y_pred = svclassifier.predict(test_x)   #test classifier
 
-
+# print results
 print(confusion_matrix(test_y,y_pred))
 print(classification_report(test_y,y_pred))
-
-
-
-
-
-
-
-
-
-
-
-
-
-

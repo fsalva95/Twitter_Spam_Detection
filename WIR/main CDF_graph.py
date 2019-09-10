@@ -9,17 +9,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
 
-
-
-
-
 filename = "data_train.txt"
 
 
-X = []  #intero dataset
+X = []  #whole dataset
 Y = []  #groundtruth
 
-train_x = []  #attributi learning
+train_x = []  #learning attributes
 train_y = []  #ground truth
 test_x = []
 test_y = []
@@ -32,17 +28,18 @@ with open(filename, 'r',encoding="utf8") as file:
 
         i=0
         for row in file:
-                if i!=0 and len(row.split(";;$;;"))==12 and i<100:  #i<500 per vedere che il codice funziona (è da togliere per trainare tutto il db
+                if i!=0 and len(row.split(";;$;;"))==12: #and i<100:  #i<500 per vedere che il codice funziona (è da togliere per trainare tutto il db
                         value=row.split(";;$;;")
                         classification=value[4]
                         value=list(map(str.strip,value))
                         Y.append(classification)
 
-                        value.remove(value[4])  #rimuovo classificazione
+                        value.remove(value[4])  #remove classification
                         value=list(map(float,value))
                         value=np.asarray(value)
                         #print(value.shape)
                         X.append(value)
+                        # Split data in two different dataset depending on their classification
                         if classification == 'Quality':
                             data_graph_quality.append(value)
                         else:
@@ -52,11 +49,11 @@ with open(filename, 'r',encoding="utf8") as file:
                 i=i+1
 
 
- #troppo pesante
 print("FATTO")
 #print(Y)
 X=np.asarray(X)
 print(X)
+# Scale the dataset value to make results more readable
 scaler = MinMaxScaler()  # Default behavior is to scale to [0,1]
 X = scaler.fit_transform(X)
 train_x, test_x, train_y, test_y = train_test_split(X, Y, test_size = 0.20)
