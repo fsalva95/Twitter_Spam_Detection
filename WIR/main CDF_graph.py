@@ -50,22 +50,6 @@ with open(filename, 'r',encoding="utf8") as file:
 
 
 print("FATTO")
-#print(Y)
-X=np.asarray(X)
-print(X)
-# Scale the dataset value to make results more readable
-scaler = MinMaxScaler()  # Default behavior is to scale to [0,1]
-X = scaler.fit_transform(X)
-train_x, test_x, train_y, test_y = train_test_split(X, Y, test_size = 0.20)
-svclassifier = SVC(kernel='rbf', gamma='auto')
-print(train_x.shape)
-model=svclassifier.fit(train_x, train_y)
-print("FATTO")
-y_pred = svclassifier.predict(test_x)
-print("FATTO")
-
-print(confusion_matrix(test_y,y_pred))
-print(classification_report(test_y,y_pred))
 
 
 data_graph_spam = np.asarray(data_graph_spam)
