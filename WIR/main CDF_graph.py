@@ -15,11 +15,6 @@ filename = "data_train.txt"
 X = []  #whole dataset
 Y = []  #groundtruth
 
-train_x = []  #learning attributes
-train_y = []  #ground truth
-test_x = []
-test_y = []
-
 data_graph_quality = []
 data_graph_spam = []
 
